@@ -192,8 +192,9 @@ func (sb *StatsdBuffer) flush() (err error) {
 			sb.Logger.Println(err)
 		}
 		//sb.Logger.Println("Sent", v.String())
-		delete(sb.events, k)
 	}
+	// clear events after reporting
+	sb.events = map[string]event.Event{}
 
 	return nil
 }
