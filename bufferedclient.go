@@ -186,12 +186,11 @@ func (sb *StatsdBuffer) flush() (err error) {
 	if nil != err {
 		sb.Logger.Println("Error establishing UDP connection for sending statsd events:", err)
 	}
-	for k, v := range sb.events {
+	for _, v := range sb.events {
 		err := sb.statsd.SendEvent(v)
 		if nil != err {
 			sb.Logger.Println(err)
 		}
-		//sb.Logger.Println("Sent", v.String())
 	}
 	// clear events after reporting
 	sb.events = map[string]event.Event{}
